@@ -1,13 +1,13 @@
-import "./App.css";
-import UserProvider from "./context/UserProvider.jsx";
-import Connection from "./components/Connection.jsx";
-import Login from "./components/Login.jsx";
+import './App.css';
+import UserProvider from './context/UserProvider';
+import Connection from './components/Connection';
+import Login from './components/Login';
 
 function App() {
   return (
     <UserProvider>
-      <Connection/>
-      <Login/>
+      <Connection />
+      <Login />
     </UserProvider>
   );
 }
