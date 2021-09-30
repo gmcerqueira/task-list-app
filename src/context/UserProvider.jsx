@@ -1,5 +1,6 @@
 import { useEffect, useState, createContext } from 'react';
 import PropTypes from 'prop-types';
+import { saveTokenLocalStorage, readTokenLocalStorage } from '../services/handleToken';
 
 const UserContext = createContext();
 
@@ -57,7 +58,13 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     getConnection();
+    const localToken = readTokenLocalStorage();
+    setToken(localToken);
   }, []);
+
+  useEffect(() => {
+    saveTokenLocalStorage(Token);
+  }, [Token]);
 
   const context = {
     Connection,
