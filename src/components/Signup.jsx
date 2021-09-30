@@ -1,13 +1,21 @@
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 
-const Login = () => {
+const Signup = () => {
   const { handleInputChange, login } = useContext(UserContext);
 
   return (
     <section>
-      <h2>Login</h2>
+      <h2>Sign up</h2>
       <form>
+        <label htmlFor="firstName">
+          First name:
+          <input type="text" name="firstName" onChange={handleInputChange} />
+        </label>
+        <label htmlFor="lastName">
+          Last name:
+          <input type="text" name="lastName" onChange={handleInputChange} />
+        </label>
         <label htmlFor="email">
           Email:
           <input type="text" name="email" onChange={handleInputChange} />
@@ -24,4 +32,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 
-import UserContext from './UserContext';
+const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [Connection, setConnection] = useState(false);
@@ -10,6 +10,8 @@ const UserProvider = ({ children }) => {
   const [User, setUser] = useState({
     email: 'abc@abc.com',
     password: '123456',
+    firstName: 'John',
+    lastName: 'Smith',
   });
 
   const getConnection = async () => {
@@ -75,4 +77,4 @@ UserProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default UserProvider;
+export { UserProvider, UserContext };

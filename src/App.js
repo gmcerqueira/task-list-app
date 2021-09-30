@@ -1,14 +1,16 @@
 import './App.css';
-import UserProvider from './context/UserProvider';
-import Connection from './components/Connection';
+import { Switch, Route } from 'react-router';
 import Login from './components/Login';
+import ConnectionStats from './components/ConnectionStats';
+import Signup from './components/Signup';
 
 function App() {
   return (
-    <UserProvider>
-      <Connection />
-      <Login />
-    </UserProvider>
+    <Switch>
+      <Route path="/test" component={ConnectionStats} />
+      <Route path="/signup" component={Signup} />
+      <Route exact path="/" component={Login} />
+    </Switch>
   );
 }
 
