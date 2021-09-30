@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useContext } from "react";
+import UserContext from "../context/UserContext.jsx";
+
 
 const Login = () => {
-  return (
-    <div>
-      <input type='text'/>
-    </div>
-  )
-}
+  const {handleInputChange,login,Token} = useContext(UserContext)
 
-export default Login
+  return (
+    <form>
+      <label>
+        Email:
+        <input type="text" name="email" onChange={handleInputChange}/>
+      </label>
+      <label>
+        Password:
+        <input type="password" name="password" onChange={handleInputChange}/>
+      </label>
+      <button type="button" onClick={login}>Login</button>
+      {Token?(<div>logado</div>):(<div>aguardando</div>)}
+    </form>
+  );
+};
+
+export default Login;
