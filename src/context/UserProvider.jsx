@@ -48,6 +48,17 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const signUp = async () => {
+    const URL = 'https://task-list-api-gmc.herokuapp.com/singup';
+    await fetch(URL, {
+      method: 'POST',
+      body: JSON.stringify(User),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res.json());
+  };
+
   const handleInputChange = (event) => {
     const { target } = event;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -76,7 +87,7 @@ const UserProvider = ({ children }) => {
     Error,
     handleInputChange,
     login,
-
+    signUp,
   };
 
   return (

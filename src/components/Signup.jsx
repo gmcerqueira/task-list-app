@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 
 const Signup = () => {
-  const { handleInputChange, login } = useContext(UserContext);
+  const { handleInputChange, signUp } = useContext(UserContext);
 
   return (
     <section>
@@ -24,8 +24,8 @@ const Signup = () => {
           Password:
           <input type="password" name="password" onChange={handleInputChange} />
         </label>
-        <button type="button" onClick={login}>
-          Login
+        <button type="button" onClick={signUp}>
+          Register
         </button>
       </form>
     </section>
