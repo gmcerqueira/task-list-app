@@ -1,6 +1,9 @@
 import { useEffect, useState, createContext } from 'react';
 import PropTypes from 'prop-types';
-import { saveTokenLocalStorage, readTokenLocalStorage } from '../services/handleToken';
+import {
+  saveTokenLocalStorage,
+  readTokenLocalStorage,
+} from '../services/handleToken';
 
 const UserContext = createContext();
 
@@ -73,6 +76,7 @@ const UserProvider = ({ children }) => {
     Error,
     handleInputChange,
     login,
+
   };
 
   return (

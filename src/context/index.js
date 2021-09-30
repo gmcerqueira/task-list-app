@@ -1,8 +1,15 @@
 import PropTypes from 'prop-types';
+import { TaskProvider } from './TaskProvider';
 import { UserProvider } from './UserProvider';
 
 function Provider({ children }) {
-  return <UserProvider>{children}</UserProvider>;
+  return (
+    <TaskProvider>
+      <UserProvider>
+        {children}
+      </UserProvider>
+    </TaskProvider>
+  );
 }
 
 Provider.propTypes = {
