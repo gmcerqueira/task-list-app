@@ -7,8 +7,9 @@ import { UserContext } from '../context/UserProvider';
 
 const Home = () => {
   const { User } = useContext(UserContext);
-  // console.log(User.email);
-  // if (User.email) return <Redirect to="/tasks" />;
+
+  if (User.email) return <Redirect to="/tasks" />;
+
   return (
     <div>
       <Login />
