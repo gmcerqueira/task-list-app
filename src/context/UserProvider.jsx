@@ -75,17 +75,16 @@ const UserProvider = ({ children }) => {
     getConnection();
     const localToken = readTokenLocalStorage();
     const localUser = readUserLocalStorage();
-    setToken(localToken);
-    setUser(localUser);
+    if (localToken && localUser) {
+      setToken(localToken);
+      setUser(localUser);
+    }
   }, []);
 
   useEffect(() => {
     saveTokenLocalStorage(Token);
-  }, [Token]);
-
-  useEffect(() => {
     saveUserLocalStorage(User);
-  }, [User]);
+  }, [Token]);
 
   const context = {
     Connection,
