@@ -1,9 +1,9 @@
 import './App.css';
 import { Switch, Route } from 'react-router';
-import Login from './components/Login';
 import ConnectionStats from './components/ConnectionStats';
 import Signup from './components/Signup';
 import Tasks from './components/Tasks';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Route path="/test" component={ConnectionStats} />
       <Route path="/tasks" component={Tasks} />
       <Route path="/signup" component={Signup} />
-      <Route exact path="/" component={Login} />
+      <Route exact path="/" component={Home} />
     </Switch>
   );
 }
