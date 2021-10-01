@@ -11,8 +11,13 @@ const UserProvider = ({ children }) => {
   const [Connection, setConnection] = useState(false);
   const [Token, setToken] = useState('');
   const [Error, setError] = useState('');
-  const [User, setUser] = useState({});
-  const [Login, setLogin] = useState({});
+  const [User, setUser] = useState({
+    _id: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+  });
+  const [Login, setLogin] = useState({ email: '', password: '' });
 
   const getConnection = async () => {
     const CONNECTION_URL = 'https://task-list-api-gmc.herokuapp.com/';
