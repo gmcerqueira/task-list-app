@@ -4,7 +4,10 @@ import {
   saveTokenLocalStorage,
   readTokenLocalStorage,
 } from '../services/handleToken';
-import { saveUserLocalStorage, readUserLocalStorage } from '../services/handleUser';
+import {
+  saveUserLocalStorage,
+  readUserLocalStorage,
+} from '../services/handleUser';
 
 const UserContext = createContext();
 
@@ -17,6 +20,12 @@ const UserProvider = ({ children }) => {
     email: '',
     firstName: '',
     lastName: '',
+  });
+  const [NewUser, setNewUser] = useState({
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
   });
   const [Login, setLogin] = useState({ email: '', password: '' });
 
@@ -52,14 +61,21 @@ const UserProvider = ({ children }) => {
   };
 
   const signUp = async () => {
-    const URL = 'https://task-list-api-gmc.herokuapp.com/singup';
-    await fetch(URL, {
+    const URL = 'https://task-list-api-gmc.herokuapp.com/signup';
+    const response = await fetch(URL, {
       method: 'POST',
-      body: JSON.stringify(User),
+      body: JSON.stringify(NewUser),
       headers: {
         'Content-Type': 'application/json',
       },
     }).then((res) => res.json());
+
+    if (response.error) setError(response.error);
+    else {
+      setLogin({ email: NewUser.email, password: NewUser.password });
+      login();
+      setError('');
+    }
   };
 
   const handleLoginChange = ({ target }) => {
@@ -67,6 +83,15 @@ const UserProvider = ({ children }) => {
 
     setLogin({
       ...Login,
+      [name]: value,
+    });
+  };
+
+  const handleNewUserChange = ({ target }) => {
+    const { name, value } = target;
+
+    setNewUser({
+      ...NewUser,
       [name]: value,
     });
   };
@@ -92,11 +117,14 @@ const UserProvider = ({ children }) => {
   const context = {
     Connection,
     User,
+    NewUser,
+    Login,
     Token,
     Error,
     handleLoginChange,
     login,
     signUp,
+    handleNewUserChange,
   };
 
   return (

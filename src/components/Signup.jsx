@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 
 const Signup = () => {
-  const { handleInputChange, signUp } = useContext(UserContext);
+  const { handleNewUserChange, signUp, handleLoginChange } = useContext(UserContext);
 
   return (
     <section>
@@ -10,19 +10,33 @@ const Signup = () => {
       <form>
         <label htmlFor="firstName">
           First name:
-          <input type="text" name="firstName" onChange={handleInputChange} />
+          <input type="text" name="firstName" onChange={handleNewUserChange} />
         </label>
         <label htmlFor="lastName">
           Last name:
-          <input type="text" name="lastName" onChange={handleInputChange} />
+          <input type="text" name="lastName" onChange={handleNewUserChange} />
         </label>
         <label htmlFor="email">
           Email:
-          <input type="text" name="email" onChange={handleInputChange} />
+          <input
+            type="text"
+            name="email"
+            onChange={(e) => {
+              handleNewUserChange(e);
+              handleLoginChange(e);
+            }}
+          />
         </label>
         <label htmlFor="password">
           Password:
-          <input type="password" name="password" onChange={handleInputChange} />
+          <input
+            type="password"
+            name="password"
+            onChange={(e) => {
+              handleNewUserChange(e);
+              handleLoginChange(e);
+            }}
+          />
         </label>
         <button type="button" onClick={signUp}>
           Register
