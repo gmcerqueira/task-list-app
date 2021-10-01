@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { UserProvider } from '../context/UserProvider';
+import { UserContext } from '../context/UserProvider';
 
 const UserInfo = () => {
-  const { User } = useContext(UserProvider);
+  const { User } = useContext(UserContext);
   const { firstName, lastName, email } = User;
   return (
     <div>

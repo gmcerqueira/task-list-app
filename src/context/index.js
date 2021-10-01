@@ -4,11 +4,11 @@ import { UserProvider } from './UserProvider';
 
 function Provider({ children }) {
   return (
-    <TaskProvider>
-      <UserProvider>
+    <UserProvider>
+      <TaskProvider>
         {children}
-      </UserProvider>
-    </TaskProvider>
+      </TaskProvider>
+    </UserProvider>
   );
 }
 

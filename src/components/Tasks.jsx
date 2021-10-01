@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import dateFormat from 'dateformat';
 import { TaskContext } from '../context/TaskProvider';
 import { UserContext } from '../context/UserProvider';
-// import UserInfo from './UserInfo';
+import UserInfo from './UserInfo';
 
 const Tasks = () => {
   const {
@@ -15,7 +15,7 @@ const Tasks = () => {
   return (
     <div>
       <h2>Tasks</h2>
-      {/* <UserInfo /> */}
+      <UserInfo />
       <section>
         <h3>New task</h3>
         <textarea name="taskText" id="taskText" cols="30" rows="10" onChange={handleNewTaskChange} />
