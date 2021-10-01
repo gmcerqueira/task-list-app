@@ -4,6 +4,7 @@ import {
   saveTokenLocalStorage,
   readTokenLocalStorage,
 } from '../services/handleToken';
+import { saveUserLocalStorage, readUserLocalStorage } from '../services/handleUser';
 
 const UserContext = createContext();
 
@@ -73,12 +74,18 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     getConnection();
     const localToken = readTokenLocalStorage();
+    const localUser = readUserLocalStorage();
     setToken(localToken);
+    setUser(localUser);
   }, []);
 
   useEffect(() => {
     saveTokenLocalStorage(Token);
   }, [Token]);
+
+  useEffect(() => {
+    saveUserLocalStorage(User);
+  }, [User]);
 
   const context = {
     Connection,
