@@ -22,7 +22,6 @@ const Tasks = () => {
         ))}
       <section>
         <h3>New task</h3>
-        form
         <textarea name="taskText" id="taskText" cols="30" rows="10" onChange={handleNewTaskChange} />
         <button type="button" onClick={() => sendTask(Token)}>Add</button>
       </section>

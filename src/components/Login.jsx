@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 
 const Login = () => {
-  const { handleInputChange, login } = useContext(UserContext);
+  const { handleLoginChange, login } = useContext(UserContext);
 
   return (
     <section>
@@ -10,11 +10,11 @@ const Login = () => {
       <form>
         <label htmlFor="email">
           Email:
-          <input type="text" name="email" onChange={handleInputChange} />
+          <input type="text" name="email" onChange={handleLoginChange} />
         </label>
         <label htmlFor="password">
           Password:
-          <input type="password" name="password" onChange={handleInputChange} />
+          <input type="password" name="password" onChange={handleLoginChange} />
         </label>
         <button type="button" onClick={login}>
           Login

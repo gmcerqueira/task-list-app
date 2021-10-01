@@ -44,7 +44,9 @@ const TaskProvider = ({ children }) => {
         Authorization: token,
       },
     }).then((res) => res.json());
+
     getTasks(token);
+    setNewTask('');
   };
 
   const context = {
