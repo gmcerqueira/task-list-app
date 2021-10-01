@@ -83,8 +83,11 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     saveTokenLocalStorage(Token);
-    saveUserLocalStorage(User);
   }, [Token]);
+
+  useEffect(() => {
+    saveUserLocalStorage(User);
+  }, [User]);
 
   const context = {
     Connection,

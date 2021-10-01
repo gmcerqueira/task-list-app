@@ -10,20 +10,17 @@ const TaskProvider = ({ children }) => {
 
   const getTasks = async (token) => {
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks';
-    try {
-      const response = await fetch(URL, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-      }).then((res) => res.json());
 
-      if (response.tasks) {
-        setTasksList(response.tasks);
-      }
-    } catch (error) {
-      console.error(error);
+    const response = await fetch(URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+    }).then((res) => res.json());
+
+    if (response.tasks) {
+      setTasksList(response.tasks);
     }
   };
 
