@@ -7,12 +7,15 @@ import Home from './pages/Home';
 
 function App() {
   return (
-    <Switch>
-      <Route path="/test" component={ConnectionStats} />
-      <Route path="/tasks" component={Tasks} />
-      <Route path="/signup" component={Signup} />
-      <Route exact path="/" component={Home} />
-    </Switch>
+    <div className="App">
+      <Switch>
+        <Route path="/test" component={ConnectionStats} />
+        <Route path="/tasks" component={Tasks} />
+        <Route path="/signup" component={Signup} />
+        <Route exact path="/" component={Home} />
+      </Switch>
+      <ConnectionStats />
+    </div>
   );
 }
 
