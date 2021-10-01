@@ -1,8 +1,12 @@
+import { Redirect } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 
 const Signup = () => {
-  const { handleNewUserChange, signUp, handleLoginChange } = useContext(UserContext);
+  const {
+    handleNewUserChange, signUp, handleLoginChange, User,
+  } = useContext(UserContext);
+  if (User.email) return <Redirect to="/tasks" />;
 
   return (
     <section>

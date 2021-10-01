@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
