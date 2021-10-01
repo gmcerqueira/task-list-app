@@ -1,0 +1,24 @@
+.home-container {
+  align-items: center;
+  background-color: var(--light-grey);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 2rem auto;
+  padding: 2rem;
+  width: fit-content;
+}
+
+.signup-link {
+  background-color: var(--usafa-blue);
+  border-radius: 0.5rem;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}

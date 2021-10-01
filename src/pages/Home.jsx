@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-
+import '../styles/Home.css';
 import Login from '../components/Login';
 import { UserContext } from '../context/UserProvider';
 
@@ -10,9 +10,9 @@ const Home = () => {
   if (User.email) return <Redirect to="/tasks" />;
 
   return (
-    <div>
+    <div className="home-container">
       <Login />
-      <Link to="/signup">Sign up</Link>
+      <Link to="/signup" className="signup-link">Sign up</Link>
     </div>
   );
 };

@@ -1,20 +1,18 @@
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
+import '../styles/Login.css';
 
 const Login = () => {
   const { handleLoginChange, login } = useContext(UserContext);
 
   return (
-    <section>
-      <h2>Login</h2>
-      <form>
+    <section className="login-container">
+      <form className="login-form">
         <label htmlFor="email">
-          Email:
-          <input type="text" name="email" onChange={handleLoginChange} />
+          <input type="email" name="email" placeholder="Email" onChange={handleLoginChange} />
         </label>
         <label htmlFor="password">
-          Password:
-          <input type="password" name="password" onChange={handleLoginChange} />
+          <input type="password" name="password" placeholder="Password" onChange={handleLoginChange} />
         </label>
         <button type="button" onClick={login}>
           Login
