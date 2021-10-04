@@ -47,11 +47,21 @@ const TaskProvider = ({ children }) => {
     setNewTask('');
   };
 
-  const changeTaskStatus = ({ target }) => {
+  const changeTaskStatus = async ({ target }, token) => {
     const { id } = target;
+    const taskText = target.nextSibling;
+    taskText.classList.toggle('task-done');
+    const URL = `https://task-list-api-gmc.herokuapp.com/tasks/check/${id}`;
+    fetch(URL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+    }).then((res) => res.json());
     const newList = TasksList.map((task) => {
       const { _id, status } = task;
-      if (_id === id) return { ...task, status: (status === 'done' ? 'pending' : 'done') };
+      if (_id === id) { return { ...task, status: status === 'done' ? 'pending' : 'done' }; }
       return task;
     });
 

@@ -21,21 +21,21 @@ const Tasks = () => {
         && TasksList.map(({
           _id, text, created, status,
         }) => (
-          // <ListGroup.Item
-          //   action
-          //   onClick={changeTaskStatus}
-          //   id={_id}
-          //   className="d-flex align-items-center justify-content-between"
-          // >
-          //   <section className="me-5">{text}</section>
-          //   <section className="d-flex flex-column align-items-center opacity-50 task-date">
-          //     <span>{dateFormat(created, 'hh:mm')}</span>
-          //     <span>{dateFormat(created, 'dd/mm/yy')}</span>
-          //   </section>
-          // </ListGroup.Item>
-          <ListGroup.Item className="d-flex" key={_id}>
-            <Form.Check.Input type="checkbox" id={_id} checked={status === 'done'} onChange={changeTaskStatus} className="flex-shrink-0" />
-            <Form.Check.Label htmlFor={_id} className="w-100">{text}</Form.Check.Label>
+          <ListGroup.Item className="d-flex align-items-center" key={_id}>
+            <Form.Check.Input
+              type="checkbox"
+              id={_id}
+              checked={status === 'done'}
+              onChange={(e) => changeTaskStatus(e, Token)}
+              className="flex-shrink-0"
+            />
+            <Form.Check.Label htmlFor={_id} className={`w-100 mx-3 ${status === 'done' ? 'task-done' : ''}`}>
+              {text}
+            </Form.Check.Label>
+            <Form.Text className="d-flex flex-column align-items-center opacity-50 task-date">
+              <span>{dateFormat(created, 'hh:mm')}</span>
+              <span>{dateFormat(created, 'dd/mm/yy')}</span>
+            </Form.Text>
           </ListGroup.Item>
         ))}
     </ListGroup>
