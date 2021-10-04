@@ -8,32 +8,30 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-
-  /* border: #313131 solid 1px; */
 }
 
 .login-form input {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid var(--white);
+  border-bottom: 1px solid var(--black-coral);
   color: var(--independence);
   font-family: Roboto , sans-serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   outline: none;
   padding: 1rem 0;
   width: 100%;
 }
 
-.login-form button {
-  background-color: var(--true-blue);
-  border: none;
-  border-radius: 0.5rem;
-  color: var(--white);
-  cursor: pointer;
-  font-family: Roboto , sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  padding: 0.8rem 1.5rem;
-  text-transform: uppercase;
+.login-form input:focus {
+  background-color: transparent;
+}
+
+.login-email-input {
+  border-radius: 0 !important;
+  margin-bottom: -1px;
+}
+
+.login-password-input {
+  border-radius: 0 !important;
+  margin-bottom: 1rem;
 }

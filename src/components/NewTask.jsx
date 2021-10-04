@@ -3,8 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { TaskContext } from '../context/TaskProvider';
 import { UserContext } from '../context/UserProvider';
+import { TaskContext } from '../context/TaskProvider';
 import '../styles/NewTask.css';
 
 const NewTask = () => {
