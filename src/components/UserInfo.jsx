@@ -3,11 +3,10 @@ import { UserContext } from '../context/UserProvider';
 
 const UserInfo = () => {
   const { User } = useContext(UserContext);
-  const { firstName, lastName, email } = User;
+  const { firstName, lastName } = User;
   return (
     <div>
-      <p>{`Name: ${firstName} ${lastName}`}</p>
-      <p>{`Email: ${email}`}</p>
+      <p>{`User: ${firstName} ${lastName}`}</p>
     </div>
   );
 };

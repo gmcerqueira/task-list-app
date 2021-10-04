@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -46,11 +47,23 @@ const TaskProvider = ({ children }) => {
     setNewTask('');
   };
 
+  const changeTaskStatus = ({ target }) => {
+    const { id } = target;
+    const newList = TasksList.map((task) => {
+      const { _id, status } = task;
+      if (_id === id) return { ...task, status: (status === 'done' ? 'pending' : 'done') };
+      return task;
+    });
+
+    setTasksList(newList);
+  };
+
   const context = {
     TasksList,
     getTasks,
     sendTask,
     handleNewTaskChange,
+    changeTaskStatus,
   };
 
   return (
