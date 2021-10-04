@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 const TaskContext = createContext();
@@ -7,7 +6,7 @@ const TaskContext = createContext();
 const TaskProvider = ({ children }) => {
   const [TasksList, setTasksList] = useState([]);
   const [NewTask, setNewTask] = useState('');
-  useEffect(() => {}, [TasksList]);
+  const [Sent, setSent] = useState(false);
 
   const getTasks = async (token) => {
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks';
@@ -32,19 +31,32 @@ const TaskProvider = ({ children }) => {
   };
 
   const sendTask = async (token) => {
-    if (!NewTask) return;
+    if (!NewTask) {
+      alert('Must type task...');
+      return;
+    }
+    if (Sent) return;
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks/create';
-    await fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify({ task: NewTask }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    }).then((res) => res.json());
+    try {
+      await fetch(URL, {
+        method: 'POST',
+        body: JSON.stringify({ task: NewTask }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      }).then((res) => res.json());
 
-    getTasks(token);
-    setNewTask('');
+      getTasks(token);
+      setNewTask('');
+      setSent(true);
+      setTimeout(() => {
+        setSent(false);
+        clearInterval();
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const changeTaskStatus = async ({ target }, token) => {
@@ -61,7 +73,9 @@ const TaskProvider = ({ children }) => {
     }).then((res) => res.json());
     const newList = TasksList.map((task) => {
       const { _id, status } = task;
-      if (_id === id) { return { ...task, status: status === 'done' ? 'pending' : 'done' }; }
+      if (_id === id) {
+        return { ...task, status: status === 'done' ? 'pending' : 'done' };
+      }
       return task;
     });
 
@@ -70,6 +84,7 @@ const TaskProvider = ({ children }) => {
 
   const context = {
     TasksList,
+    Sent,
     getTasks,
     sendTask,
     handleNewTaskChange,

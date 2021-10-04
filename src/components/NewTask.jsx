@@ -1,23 +1,44 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Overlay from 'react-bootstrap/Overlay';
+import Tooltip from 'react-bootstrap/Tooltip';
 import { TaskContext } from '../context/TaskProvider';
 import { UserContext } from '../context/UserProvider';
+import '../styles/NewTask.css';
 
 const NewTask = () => {
-  const { sendTask, handleNewTaskChange } = useContext(TaskContext);
+  const { sendTask, handleNewTaskChange, Sent } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
+
+  const ref = useRef(null);
   return (
-    <div>
-      <textarea
-        name="taskText"
-        id="taskText"
-        cols="30"
-        rows="10"
-        onChange={handleNewTaskChange}
-      />
-      <button type="button" onClick={() => sendTask(Token)}>
-        Add
-      </button>
-    </div>
+    <Form>
+      <Form.FloatingLabel
+        controlId="newTask"
+        label="New task..."
+        className="mb-3"
+      >
+        <Form.Control
+          as="textarea"
+          rows="60"
+          cols="30"
+          placeholder="Leave a comment here"
+          onChange={handleNewTaskChange}
+        />
+      </Form.FloatingLabel>
+      <Button variant="primary" ref={ref} onClick={() => sendTask(Token)}>
+        Submit
+      </Button>
+      <Overlay target={ref.current} show={Sent} placement="right">
+        {(props) => (
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <Tooltip id="overlay-example" {...props}>
+            Task sent!
+          </Tooltip>
+        )}
+      </Overlay>
+    </Form>
   );
 };
 

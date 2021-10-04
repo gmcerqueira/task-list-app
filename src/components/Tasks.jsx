@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useContext } from 'react';
 import dateFormat from 'dateformat';
 import ListGroup from 'react-bootstrap/ListGroup';
