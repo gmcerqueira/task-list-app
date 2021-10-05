@@ -47,7 +47,7 @@ const Login = () => {
         onChange={() => setSaveLogin(!SaveLogin)}
       />
 
-      <Button variant="primary" onClick={login} className="mb-3 w-100">
+      <Button variant="primary" onClick={login} className="mb-3 w-100" disabled={Loading}>
         {Loading ? (
           <Spinner
             as="span"

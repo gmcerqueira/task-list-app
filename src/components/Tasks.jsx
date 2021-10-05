@@ -19,9 +19,10 @@ import EditTask from './EditTask';
 const Tasks = () => {
   const [ModalShow, setModalShow] = useState(false);
   const [TaskToEdit, setTaskToEdit] = useState('');
+  const [TaskId, setTaskId] = useState('');
 
   const {
-    TasksList, getTasks, changeTaskStatus, Loading, deleteTask, Sent,
+    TasksList, getTasks, changeTaskStatus, Loading, deleteTask, Deleting,
   } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
@@ -90,11 +91,12 @@ const Tasks = () => {
               <Button
                 variant="danger"
                 id={_id}
-                onClick={(e) => deleteTask(e, Token)}
+                onClick={(e) => { setTaskId(e.target.id); deleteTask(e, Token); }}
                 className="task-button"
+                disabled={Deleting}
 
               >
-                {Sent ? (
+                {(Deleting && TaskId === _id) ? (
                   <Spinner animation="border" variant="light" size="sm" />
                 ) : (
                   <Trash2 />

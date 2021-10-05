@@ -78,7 +78,13 @@ const UserProvider = ({ children }) => {
   };
 
   const signUp = async () => {
-    if (!confirmPassword()) return alert('Passwords are different ');
+    setLoading(true);
+    if (!confirmPassword()) {
+      setLoading(false);
+
+      setUserError('Passwords do not match');
+      return;
+    }
     const { passwordConfirmation, ...user } = NewUser;
     const URL = 'https://task-list-api-gmc.herokuapp.com/signup';
     const response = await fetch(URL, {
@@ -94,6 +100,7 @@ const UserProvider = ({ children }) => {
       login();
       setUserError('');
     }
+    setLoading(false);
   };
 
   const handleLoginChange = ({ target }) => {

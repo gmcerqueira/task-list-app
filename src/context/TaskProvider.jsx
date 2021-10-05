@@ -8,6 +8,7 @@ const TaskProvider = ({ children }) => {
   const [NewTask, setNewTask] = useState('');
   const [Sent, setSent] = useState(false);
   const [Loading, setLoading] = useState(true);
+  const [Deleting, setDeleting] = useState(false);
 
   const getTasks = async (token) => {
     console.log('carregando...');
@@ -137,12 +138,12 @@ const TaskProvider = ({ children }) => {
   };
 
   const deleteTask = async ({ target }, token) => {
-    if (Sent) return;
+    if (Deleting) return;
 
     const { id } = target;
     const URL = `https://task-list-api-gmc.herokuapp.com/tasks/${id}`;
 
-    setSent(true);
+    setDeleting(true);
 
     try {
       await fetch(URL, {
@@ -158,7 +159,7 @@ const TaskProvider = ({ children }) => {
 
     const newList = TasksList.filter(({ _id }) => _id !== id);
 
-    setSent(false);
+    setDeleting(false);
     setTasksList(newList);
   };
 
@@ -168,6 +169,7 @@ const TaskProvider = ({ children }) => {
     TasksList,
     Sent,
     Loading,
+    Deleting,
     getTasks,
     sendTask,
     editTask,
