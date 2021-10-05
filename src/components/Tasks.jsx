@@ -1,20 +1,56 @@
-import { useContext } from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-props-no-spreading */
+import { useContext, useEffect, useState } from 'react';
 import dateFormat from 'dateformat';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
+import Modal from 'react-bootstrap/Modal';
 import { TaskContext } from '../context/TaskProvider';
 import { UserContext } from '../context/UserProvider';
 import '../styles/Tasks.css';
+import EditTask from './EditTask';
 
 const Tasks = () => {
-  const { TasksList, getTasks, changeTaskStatus } = useContext(TaskContext);
+  const [ModalShow, setModalShow] = useState(false);
+  const [TaskToEdit, setTaskToEdit] = useState('');
+
+  const {
+    TasksList, getTasks, changeTaskStatus, Loading,
+  } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
-  if (!TasksList.length && Token) {
-    getTasks(Token);
+  useEffect(() => {
+    if (Token) getTasks(Token);
+  }, []);
+
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit task
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditTask id={TaskToEdit} setModalShow={setModalShow} />
+        </Modal.Body>
+      </Modal>
+    );
   }
 
-  return (
+  return Loading ? (
+    <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+  ) : (
     <ListGroup className="task-container">
       {TasksList
         && TasksList.map(({
@@ -38,8 +74,26 @@ const Tasks = () => {
               <span>{dateFormat(created, 'hh:mm')}</span>
               <span>{dateFormat(created, 'dd/mm/yy')}</span>
             </Form.Text>
+
+            <Button
+              variant="warning"
+              id={_id}
+              onClick={({ target }) => {
+                setTaskToEdit(target.id);
+                setModalShow(true);
+              }}
+            >
+              Edit
+            </Button>
           </ListGroup.Item>
         ))}
+      <MyVerticallyCenteredModal
+        show={ModalShow}
+        onHide={() => {
+          setModalShow(false);
+          setTaskToEdit('');
+        }}
+      />
     </ListGroup>
   );
 };

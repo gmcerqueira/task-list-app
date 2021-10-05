@@ -7,20 +7,26 @@ const TaskProvider = ({ children }) => {
   const [TasksList, setTasksList] = useState([]);
   const [NewTask, setNewTask] = useState('');
   const [Sent, setSent] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   const getTasks = async (token) => {
+    console.log('loading');
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks';
+    try {
+      const response = await fetch(URL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      }).then((res) => res.json());
 
-    const response = await fetch(URL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    }).then((res) => res.json());
-
-    if (response.tasks) {
-      setTasksList(response.tasks);
+      if (response.tasks) {
+        setTasksList(response.tasks);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -30,7 +36,33 @@ const TaskProvider = ({ children }) => {
     setNewTask(value);
   };
 
+  const editTask = async (id, text, token) => {
+    setLoading(true);
+    const URL = `https://task-list-api-gmc.herokuapp.com/tasks/${id}`;
+    try {
+      await fetch(URL, {
+        method: 'PUT',
+        body: JSON.stringify({ task: text }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      }).then((res) => res.json());
+
+      await getTasks(token);
+      setSent(true);
+      setTimeout(() => {
+        setSent(false);
+        clearInterval();
+      }, 3000);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const sendTask = async (token) => {
+    setLoading(true);
     if (!NewTask) {
       alert('Must type task...');
       return;
@@ -47,13 +79,14 @@ const TaskProvider = ({ children }) => {
         },
       }).then((res) => res.json());
 
-      getTasks(token);
+      await getTasks(token);
       setNewTask('');
       setSent(true);
       setTimeout(() => {
         setSent(false);
         clearInterval();
       }, 3000);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -62,15 +95,22 @@ const TaskProvider = ({ children }) => {
   const changeTaskStatus = async ({ target }, token) => {
     const { id } = target;
     const taskText = target.nextSibling;
+
     taskText.classList.toggle('task-done');
+
     const URL = `https://task-list-api-gmc.herokuapp.com/tasks/check/${id}`;
-    fetch(URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    }).then((res) => res.json());
+    try {
+      fetch(URL, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      }).then((res) => res.json());
+    } catch (error) {
+      console.log(error);
+    }
+
     const newList = TasksList.map((task) => {
       const { _id, status } = task;
       if (_id === id) {
@@ -82,13 +122,18 @@ const TaskProvider = ({ children }) => {
     setTasksList(newList);
   };
 
+  const findTask = (id) => TasksList.find(({ _id }) => _id === id).text;
+
   const context = {
     TasksList,
     Sent,
+    Loading,
     getTasks,
     sendTask,
+    editTask,
     handleNewTaskChange,
     changeTaskStatus,
+    findTask,
   };
 
   return (
