@@ -31,13 +31,18 @@ const UserProvider = ({ children }) => {
 
   const getConnection = async () => {
     const CONNECTION_URL = 'https://task-list-api-gmc.herokuapp.com/';
-    const response = await fetch(CONNECTION_URL, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then(({ connection }) => connection);
+    try {
+      const response = await fetch(CONNECTION_URL, {
+        method: 'GET',
+      })
+        .then((res) => res.json())
+        .then(({ connection }) => connection);
 
-    setConnection(response);
+      setConnection(response);
+    } catch (error) {
+      console.log(error);
+      setConnection(false);
+    }
   };
 
   const login = async () => {

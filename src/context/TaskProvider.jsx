@@ -10,8 +10,9 @@ const TaskProvider = ({ children }) => {
   const [Loading, setLoading] = useState(true);
 
   const getTasks = async (token) => {
-    console.log('loading');
+    console.log('carregando...');
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks';
+
     try {
       const response = await fetch(URL, {
         method: 'GET',
@@ -24,6 +25,7 @@ const TaskProvider = ({ children }) => {
       if (response.tasks) {
         setTasksList(response.tasks);
       }
+
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -38,7 +40,9 @@ const TaskProvider = ({ children }) => {
 
   const editTask = async (id, text, token) => {
     setLoading(true);
+
     const URL = `https://task-list-api-gmc.herokuapp.com/tasks/${id}`;
+
     try {
       await fetch(URL, {
         method: 'PUT',
@@ -49,12 +53,15 @@ const TaskProvider = ({ children }) => {
         },
       }).then((res) => res.json());
 
-      await getTasks(token);
-      setSent(true);
-      setTimeout(() => {
-        setSent(false);
-        clearInterval();
-      }, 3000);
+      const newList = TasksList.map((task) => {
+        const { _id } = task;
+        if (_id === id) {
+          return { ...task, text };
+        }
+        return task;
+      });
+
+      setTasksList(newList);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -63,12 +70,15 @@ const TaskProvider = ({ children }) => {
 
   const sendTask = async (token) => {
     setLoading(true);
+
     if (!NewTask) {
       alert('Must type task...');
       return;
     }
     if (Sent) return;
+
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks/create';
+
     try {
       await fetch(URL, {
         method: 'POST',
@@ -80,12 +90,15 @@ const TaskProvider = ({ children }) => {
       }).then((res) => res.json());
 
       await getTasks(token);
+
       setNewTask('');
       setSent(true);
+
       setTimeout(() => {
         setSent(false);
         clearInterval();
       }, 3000);
+
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -99,6 +112,7 @@ const TaskProvider = ({ children }) => {
     taskText.classList.toggle('task-done');
 
     const URL = `https://task-list-api-gmc.herokuapp.com/tasks/check/${id}`;
+
     try {
       fetch(URL, {
         method: 'PUT',
