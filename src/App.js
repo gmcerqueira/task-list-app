@@ -6,10 +6,12 @@ import Signup from './components/Signup';
 import Home from './pages/Home';
 // import NewTask from './components/NewTask';
 import ListTasks from './pages/ListTasks';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Switch>
         <Route path="/test" component={ConnectionStats} />
         <Route path="/tasks" component={ListTasks} />

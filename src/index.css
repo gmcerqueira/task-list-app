@@ -30,6 +30,7 @@ code {
     monospace;
 }
 
-button > * {
+button > *,
+a > * {
   pointer-events: none;
 }
