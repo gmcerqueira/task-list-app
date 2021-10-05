@@ -28,6 +28,8 @@ const UserProvider = ({ children }) => {
     password: '',
   });
   const [Login, setLogin] = useState({ email: '', password: '' });
+  const [SaveLogin, setSaveLogin] = useState(false);
+  const [Loading, setLoading] = useState(false);
 
   const getConnection = async () => {
     const CONNECTION_URL = 'https://task-list-api-gmc.herokuapp.com/';
@@ -46,6 +48,7 @@ const UserProvider = ({ children }) => {
   };
 
   const login = async () => {
+    setLoading(true);
     const URL = 'https://task-list-api-gmc.herokuapp.com/login';
     const response = await fetch(URL, {
       method: 'POST',
@@ -63,6 +66,7 @@ const UserProvider = ({ children }) => {
       setError(response.error);
       setToken('');
     }
+    setLoading(false);
   };
 
   const signUp = async () => {
@@ -112,11 +116,11 @@ const UserProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    saveTokenLocalStorage(Token);
+    if (SaveLogin) saveTokenLocalStorage(Token);
   }, [Token]);
 
   useEffect(() => {
-    saveUserLocalStorage(User);
+    if (SaveLogin) saveUserLocalStorage(User);
   }, [User]);
 
   const context = {
@@ -126,10 +130,13 @@ const UserProvider = ({ children }) => {
     Login,
     Token,
     Error,
+    SaveLogin,
+    Loading,
     handleLoginChange,
     login,
     signUp,
     handleNewUserChange,
+    setSaveLogin,
   };
 
   return (

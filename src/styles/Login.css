@@ -10,28 +10,20 @@
   flex-direction: column;
 }
 
-.login-form input {
+.login-form [type="email"],
+.login-form [type="password"] {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid var(--black-coral);
+  border-radius: 0;
   color: var(--independence);
   font-family: Roboto, sans-serif;
   font-size: 1.2rem;
   outline: none;
-  padding: 1rem 0;
   width: 100%;
 }
 
-.login-form input:focus {
+.login-form [type="email"]:focus,
+.login-form [type="password"]:focus {
   background-color: transparent;
-}
-
-.login-email-input {
-  border-radius: 0 !important;
-  margin-bottom: -1px;
-}
-
-.login-password-input {
-  border-radius: 0 !important;
-  margin-bottom: 1rem;
 }
