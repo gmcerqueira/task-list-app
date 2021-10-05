@@ -6,8 +6,7 @@
   width: 100%;
 }
 
-.login-form [type="email"],
-.login-form [type="password"] {
+#email, #password {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid var(--black-coral);
@@ -17,7 +16,6 @@
   width: 100%;
 }
 
-.login-form [type="email"]:focus,
-.login-form [type="password"]:focus {
+#email:focus, #password:focus {
   background-color: transparent;
 }

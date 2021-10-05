@@ -26,6 +26,7 @@ const UserProvider = ({ children }) => {
     firstName: '',
     lastName: '',
     password: '',
+    passwordConfirmation: '',
   });
   const [Login, setLogin] = useState({ email: '', password: '' });
   const [SaveLogin, setSaveLogin] = useState(false);
