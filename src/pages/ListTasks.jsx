@@ -29,7 +29,7 @@ const ListTasks = () => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
-    <section className="d-flex flex-column align-items-end mt-5">
+    <section className="d-flex flex-column align-items-center mt-5">
       <Button variant="primary" onClick={() => setModalShow(true)} className="mb-4">
         New task
       </Button>
