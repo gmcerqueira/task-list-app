@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { Alert } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import Error from '../components/Error';
 import Login from '../components/Login';
 import { UserContext } from '../context/UserProvider';
 
@@ -12,10 +12,7 @@ const Home = () => {
   return (
     <div>
       {UserError ? (
-        <Alert variant="danger" onClose={() => setUserError(false)} dismissible>
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-          <p>{UserError}</p>
-        </Alert>
+        <Error error={UserError} seter={setUserError} />
       ) : (
         <Login />
       )}
