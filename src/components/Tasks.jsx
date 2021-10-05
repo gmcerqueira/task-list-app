@@ -1,13 +1,16 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useContext, useEffect, useState } from 'react';
+import { Edit, Trash2 } from 'react-feather';
 import dateFormat from 'dateformat';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { TaskContext } from '../context/TaskProvider';
 import { UserContext } from '../context/UserProvider';
 import '../styles/Tasks.css';
@@ -24,7 +27,7 @@ const Tasks = () => {
 
   useEffect(() => {
     if (Token) getTasks(Token);
-  }, []);
+  }, [Token]);
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -74,17 +77,21 @@ const Tasks = () => {
               <span>{dateFormat(created, 'hh:mm')}</span>
               <span>{dateFormat(created, 'dd/mm/yy')}</span>
             </Form.Text>
-
-            <Button
-              variant="warning"
-              id={_id}
-              onClick={({ target }) => {
-                setTaskToEdit(target.id);
-                setModalShow(true);
-              }}
-            >
-              Edit
-            </Button>
+            <ButtonGroup size="sm" className="">
+              <Button
+                variant="none"
+                id={_id}
+                onClick={({ target }) => {
+                  setTaskToEdit(target.id);
+                  setModalShow(true);
+                }}
+              >
+                <Edit id={_id} />
+              </Button>
+              <Button variant="none" id={_id} onClick={() => { console.log('delete tasks'); }}>
+                <Trash2 color="#dc3545" />
+              </Button>
+            </ButtonGroup>
           </ListGroup.Item>
         ))}
       <MyVerticallyCenteredModal

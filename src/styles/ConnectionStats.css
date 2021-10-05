@@ -6,11 +6,6 @@
   text-transform: uppercase;
 }
 
-.connection svg {
-  font-size: 2rem;
-  margin: 0 0 4px 5px;
-}
-
 .connection-ok {
   color: rgb(0, 148, 0);
 }

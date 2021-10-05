@@ -16,27 +16,29 @@ const EditTask = (props) => {
   const [TaskText, setTaskText] = useState(findTask(id));
 
   return (
-    <Form>
-      <Form.Control
-        id="editTask"
-        as="textarea"
-        placeholder="Leave a comment here"
-        rows="10"
-        cols="10"
-        value={TaskText}
-        onChange={({ target }) => setTaskText(target.value)}
-      />
-      <Button
-        variant="primary"
-        ref={ref}
-        onClick={() => {
-          editTask(id, TaskText, Token);
-          setModalShow(false);
-        }}
-      >
-        Submit
-      </Button>
-    </Form>
+    TaskText && (
+      <Form>
+        <Form.Control
+          id="editTask"
+          as="textarea"
+          placeholder="Leave a comment here"
+          rows="10"
+          cols="10"
+          value={TaskText}
+          onChange={({ target }) => setTaskText(target.value)}
+        />
+        <Button
+          variant="primary"
+          ref={ref}
+          onClick={() => {
+            editTask(id, TaskText, Token);
+            setModalShow(false);
+          }}
+        >
+          Submit
+        </Button>
+      </Form>
+    )
   );
 };
 
