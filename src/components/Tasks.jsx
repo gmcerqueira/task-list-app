@@ -28,7 +28,10 @@ const Tasks = () => {
               onChange={(e) => changeTaskStatus(e, Token)}
               className="flex-shrink-0"
             />
-            <Form.Check.Label htmlFor={_id} className={`w-100 mx-3 ${status === 'done' ? 'task-done' : ''}`}>
+            <Form.Check.Label
+              htmlFor={_id}
+              className={`w-100 mx-3 ${status === 'done' ? 'task-done' : ''}`}
+            >
               {text}
             </Form.Check.Label>
             <Form.Text className="d-flex flex-column align-items-center opacity-50 task-date">
