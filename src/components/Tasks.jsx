@@ -21,7 +21,12 @@ const Tasks = () => {
   const [TaskToEdit, setTaskToEdit] = useState('');
 
   const {
-    TasksList, getTasks, changeTaskStatus, Loading,
+    TasksList,
+    getTasks,
+    changeTaskStatus,
+    Loading,
+    setLoading,
+    deleteTask,
   } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
@@ -77,9 +82,9 @@ const Tasks = () => {
               <span>{dateFormat(created, 'hh:mm')}</span>
               <span>{dateFormat(created, 'dd/mm/yy')}</span>
             </Form.Text>
-            <ButtonGroup size="sm" className="">
+            <ButtonGroup size="sm" className="ms-2">
               <Button
-                variant="none"
+                variant="secondary"
                 id={_id}
                 onClick={({ target }) => {
                   setTaskToEdit(target.id);
@@ -88,8 +93,12 @@ const Tasks = () => {
               >
                 <Edit id={_id} />
               </Button>
-              <Button variant="none" id={_id} onClick={() => { console.log('delete tasks'); }}>
-                <Trash2 color="#dc3545" />
+              <Button
+                variant="danger"
+                id={_id}
+                onClick={(e) => deleteTask(e, Token)}
+              >
+                <Trash2 />
               </Button>
             </ButtonGroup>
           </ListGroup.Item>

@@ -1,6 +1,5 @@
 .task-container {
-  max-width: 40rem;
-  min-width: 12rem;
+  width: 40rem;
 }
 
 .task-date {

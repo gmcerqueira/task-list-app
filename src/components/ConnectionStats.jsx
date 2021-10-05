@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Spinner } from 'react-bootstrap';
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
+import { Check } from 'react-feather';
+
 import { UserContext } from '../context/UserProvider';
 import '../styles/ConnectionStats.css';
 
@@ -10,7 +11,7 @@ const ConnectionStats = () => {
     <div className="connection">
       Data base
       {Connection ? (
-        <CheckOutlinedIcon className="connection-ok" />
+        <Check className="connection-ok" />
       ) : (
         <Spinner animation="grow" variant="success" />
       )}
