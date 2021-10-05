@@ -9,3 +9,7 @@
 .task-done {
   text-decoration: line-through;
 }
+
+.task-button {
+  width: 42px;
+}

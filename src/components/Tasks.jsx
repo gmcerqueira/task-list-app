@@ -21,12 +21,7 @@ const Tasks = () => {
   const [TaskToEdit, setTaskToEdit] = useState('');
 
   const {
-    TasksList,
-    getTasks,
-    changeTaskStatus,
-    Loading,
-    setLoading,
-    deleteTask,
+    TasksList, getTasks, changeTaskStatus, Loading, deleteTask, Sent,
   } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
@@ -90,6 +85,7 @@ const Tasks = () => {
                   setTaskToEdit(target.id);
                   setModalShow(true);
                 }}
+                className="task-button"
               >
                 <Edit id={_id} />
               </Button>
@@ -97,12 +93,19 @@ const Tasks = () => {
                 variant="danger"
                 id={_id}
                 onClick={(e) => deleteTask(e, Token)}
+                className="task-button"
+
               >
-                <Trash2 />
+                {Sent ? (
+                  <Spinner animation="border" variant="light" size="sm" />
+                ) : (
+                  <Trash2 />
+                )}
               </Button>
             </ButtonGroup>
           </ListGroup.Item>
         ))}
+
       <MyVerticallyCenteredModal
         show={ModalShow}
         onHide={() => {

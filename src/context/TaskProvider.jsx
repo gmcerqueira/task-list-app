@@ -136,12 +136,16 @@ const TaskProvider = ({ children }) => {
     setTasksList(newList);
   };
 
-  const deleteTask = async ({ target, token }) => {
+  const deleteTask = async ({ target }, token) => {
+    if (Sent) return;
+
     const { id } = target;
     const URL = `https://task-list-api-gmc.herokuapp.com/tasks/${id}`;
 
+    setSent(true);
+
     try {
-      fetch(URL, {
+      await fetch(URL, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -154,6 +158,7 @@ const TaskProvider = ({ children }) => {
 
     const newList = TasksList.filter(({ _id }) => _id !== id);
 
+    setSent(false);
     setTasksList(newList);
   };
 
