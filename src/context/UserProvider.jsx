@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { useEffect, useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -31,6 +32,12 @@ const UserProvider = ({ children }) => {
   const [Login, setLogin] = useState({ email: '', password: '' });
   const [SaveLogin, setSaveLogin] = useState(false);
   const [Loading, setLoading] = useState(false);
+
+  const confirmPassword = () => {
+    const { passwordConfirmation, password } = NewUser;
+
+    return passwordConfirmation === password;
+  };
 
   const getConnection = async () => {
     const CONNECTION_URL = 'https://task-list-api-gmc.herokuapp.com/';
@@ -71,6 +78,7 @@ const UserProvider = ({ children }) => {
   };
 
   const signUp = async () => {
+    if (!confirmPassword()) return alert('Passwords are different ');
     const { passwordConfirmation, ...user } = NewUser;
     const URL = 'https://task-list-api-gmc.herokuapp.com/signup';
     const response = await fetch(URL, {
