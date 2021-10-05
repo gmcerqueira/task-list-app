@@ -12,7 +12,8 @@ const Login = () => {
   } = useContext(UserContext);
 
   return (
-    <Form className="d-flex login-form">
+    <Form className="login-form">
+      <h1 className="h3 mb-3 fw-normal">Welcome</h1>
       <Form.FloatingLabel
         controlId="email"
         label="Email"

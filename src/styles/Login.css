@@ -1,13 +1,9 @@
-.login-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
 .login-form {
   align-items: center;
   display: flex;
   flex-direction: column;
+  max-width: 300px;
+  width: 100%;
 }
 
 .login-form [type="email"],
@@ -17,8 +13,6 @@
   border-bottom: 1px solid var(--black-coral);
   border-radius: 0;
   color: var(--independence);
-  font-family: Roboto, sans-serif;
-  font-size: 1.2rem;
   outline: none;
   width: 100%;
 }
