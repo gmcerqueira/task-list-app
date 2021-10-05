@@ -5,12 +5,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
 import { UserContext } from '../context/UserProvider';
 import '../styles/Signup.css';
 
 const Signup = () => {
   const {
-    handleNewUserChange, signUp, handleLoginChange, User,
+    handleNewUserChange, signUp, handleLoginChange, User, Loading,
   } = useContext(UserContext);
   if (User.email) return <Redirect to="/tasks" />;
 
@@ -87,12 +88,12 @@ const Signup = () => {
 
         <Form.FloatingLabel
           as={Col}
-          controlId="newPassword"
+          controlId="newPasswordConfirmation"
           label="Repeat Password"
           className="opacity-50 p-0 ms-2"
         >
           <Form.Control
-            type="passwordConfirmation"
+            type="password"
             placeholder="abc123"
             name="passwordConfirmation"
             onChange={(e) => {
@@ -103,8 +104,16 @@ const Signup = () => {
         </Form.FloatingLabel>
       </Row>
 
-      <Button variant="success" className="w-25">
-        Sign up
+      <Button variant="success" onClick={signUp} className="w-25">
+        {Loading ? (
+          <Spinner
+            as="span"
+            animation="border"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+        ) : 'Sign up'}
       </Button>
     </Form>
   );

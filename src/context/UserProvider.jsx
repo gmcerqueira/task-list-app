@@ -71,10 +71,11 @@ const UserProvider = ({ children }) => {
   };
 
   const signUp = async () => {
+    const { passwordConfirmation, ...user } = NewUser;
     const URL = 'https://task-list-api-gmc.herokuapp.com/signup';
     const response = await fetch(URL, {
       method: 'POST',
-      body: JSON.stringify(NewUser),
+      body: JSON.stringify(user),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -82,7 +83,6 @@ const UserProvider = ({ children }) => {
 
     if (response.error) setUserError(response.error);
     else {
-      setLogin({ email: NewUser.email, password: NewUser.password });
       login();
       setUserError('');
     }
