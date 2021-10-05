@@ -8,20 +8,6 @@ import '../styles/Login.css';
 const Login = () => {
   const { handleLoginChange, login } = useContext(UserContext);
 
-  // <section className="login-container">
-  //   <form className="login-form">
-  //     <label htmlFor="email">
-  //       <input type="email" name="email" placeholder="Email" onChange={handleLoginChange} />
-  //     </label>
-  //     <label htmlFor="password">
-  //       <input type="password" name="password"
-  //  placeholder="Password" onChange={handleLoginChange} />
-  //     </label>
-  //     <button type="button" onClick={login}>
-  //       Login
-  //     </button>
-  //   </form>
-  // </section>
   return (
     <Form className="login-form">
       <section className="round">
