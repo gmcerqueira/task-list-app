@@ -8,10 +8,10 @@ import '../styles/ConnectionStats.css';
 const ConnectionStats = () => {
   const { Connection } = useContext(UserContext);
   return (
-    <div className="connection">
-      Data base
+    <div className="d-flex align-items-center text-uppercase fw-bold">
+      <span className="me-2">Data base</span>
       {Connection ? (
-        <Check className="connection-ok" />
+        <Check size={32} color="green" />
       ) : (
         <Spinner animation="grow" variant="success" />
       )}
