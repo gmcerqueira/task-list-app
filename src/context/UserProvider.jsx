@@ -14,7 +14,7 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [Connection, setConnection] = useState(false);
   const [Token, setToken] = useState('');
-  const [Error, setError] = useState('');
+  const [UserError, setUserError] = useState(false);
   const [User, setUser] = useState({
     _id: '',
     email: '',
@@ -61,9 +61,9 @@ const UserProvider = ({ children }) => {
     if (response.token) {
       setToken(response.token);
       setUser(response.user);
-      setError('');
+      setUserError('');
     } else {
-      setError(response.error);
+      setUserError(response.error);
       setToken('');
     }
     setLoading(false);
@@ -79,11 +79,11 @@ const UserProvider = ({ children }) => {
       },
     }).then((res) => res.json());
 
-    if (response.error) setError(response.error);
+    if (response.error) setUserError(response.error);
     else {
       setLogin({ email: NewUser.email, password: NewUser.password });
       login();
-      setError('');
+      setUserError('');
     }
   };
 
@@ -129,7 +129,7 @@ const UserProvider = ({ children }) => {
     NewUser,
     Login,
     Token,
-    Error,
+    UserError,
     SaveLogin,
     Loading,
     handleLoginChange,
@@ -137,6 +137,7 @@ const UserProvider = ({ children }) => {
     signUp,
     handleNewUserChange,
     setSaveLogin,
+    setUserError,
   };
 
   return (
