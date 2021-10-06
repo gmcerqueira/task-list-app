@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import { Clipboard } from 'react-feather';
 
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../context/UserProvider';
 
 const NavBar = () => {
@@ -13,26 +14,26 @@ const NavBar = () => {
   return (
     <Navbar bg="dark" variant="dark" fixed="top">
       <Container>
-        <Navbar.Brand href="/" className="d-flex align-items-center">
+        <Link to="/" className="d-flex align-items-center navbar-brand">
           <Clipboard className="me-2" size={30} />
           Tasks
-        </Navbar.Brand>
+        </Link>
         {User.email ? (
           <Navbar.Text>
             Signed in as:
             <span className="ms-2 text-decoration-underline text-white ">{`${User.firstName} ${User.lastName}`}</span>
-            <Button variant="secondary" size="sm" href="/" className="ms-2" onClick={signOut}>
+            <Button variant="secondary" size="sm" className="ms-2" onClick={signOut}>
               Sign out
             </Button>
           </Navbar.Text>
         ) : (
-          <Nav.Item>
-            <Button variant="secondary" href="/" className="me-2">
+          <Nav.Item className="d-flex">
+            <Link to="/" className="me-2 btn btn-secondary">
               Login
-            </Button>
-            <Button variant="success" href="/signup">
+            </Link>
+            <Link to="/signup" className="me-2 btn btn-success">
               Sign up
-            </Button>
+            </Link>
           </Nav.Item>
         )}
       </Container>

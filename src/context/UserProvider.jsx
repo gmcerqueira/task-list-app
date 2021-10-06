@@ -105,8 +105,8 @@ const UserProvider = ({ children }) => {
 
       if (response.error) setUserError(response.error);
       else {
-        login();
         setUserError('');
+        login();
       }
     } catch (error) {
       setUserError(error.message);
@@ -136,6 +136,12 @@ const UserProvider = ({ children }) => {
   const signOut = () => {
     deleteTokenLocalStorage();
     deleteUserLocalStorage();
+    setUser({
+      _id: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+    });
   };
 
   useEffect(() => {
