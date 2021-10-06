@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert';
 
 const Error = ({ error, seter }) => (
@@ -9,5 +9,10 @@ const Error = ({ error, seter }) => (
     </Alert>
   </div>
 );
+
+Error.propTypes = {
+  error: PropTypes.shape({ UserError: PropTypes.string }).isRequired,
+  seter: PropTypes.func.isRequired,
+};
 
 export default Error;

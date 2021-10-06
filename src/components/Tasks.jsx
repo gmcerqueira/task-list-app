@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-props-no-spreading */
 import { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { Edit, Trash2 } from 'react-feather';
 import dateFormat from 'dateformat';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -31,17 +29,18 @@ const Tasks = () => {
     Deleting,
     setTaskError,
   } = useContext(TaskContext);
-  const { Token, User } = useContext(UserContext);
+  const { Token } = useContext(UserContext);
 
   useEffect(() => {
     if (Token) getTasks(Token);
     else setTaskError('You need to login to access your tasks');
   }, [Token]);
 
-  function EditModal(props) {
+  function EditModal({ show, onHide }) {
     return (
       <Modal
-        {...props}
+        show={show}
+        onHide={onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -57,6 +56,11 @@ const Tasks = () => {
       </Modal>
     );
   }
+
+  EditModal.propTypes = {
+    show: PropTypes.bool.isRequired,
+    onHide: PropTypes.func.isRequired,
+  };
 
   return Loading ? (
     <Spinner animation="border" variant="primary" role="status" />
@@ -118,9 +122,7 @@ const Tasks = () => {
       ) : (
         <Alert variant="success">
           <Alert.Heading>No tasks yet at your list!</Alert.Heading>
-          <p>
-            What about we add something to do?
-          </p>
+          <p>What about we add something to do?</p>
         </Alert>
       )}
 

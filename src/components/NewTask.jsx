@@ -1,4 +1,5 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+
 import { useContext, useRef } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -29,13 +30,24 @@ const NewTask = ({ setModalShow }) => {
       <Button
         variant="primary"
         ref={ref}
-        onClick={() => { sendTask(Token); setModalShow(false); }}
+        onClick={() => {
+          sendTask(Token);
+          setModalShow(false);
+        }}
         disabled={Sending}
       >
         Submit
       </Button>
     </Form>
   );
+};
+
+NewTask.propTypes = {
+  setModalShow: PropTypes.func,
+};
+
+NewTask.defaultProps = {
+  setModalShow: () => {},
 };
 
 export default NewTask;

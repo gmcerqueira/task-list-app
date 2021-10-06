@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Redirect } from 'react-router-dom';
 import { useContext } from 'react';
 import Form from 'react-bootstrap/Form';

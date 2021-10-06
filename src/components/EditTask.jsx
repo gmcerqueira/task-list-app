@@ -1,5 +1,5 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+
 import { useContext, useRef, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -7,8 +7,7 @@ import { UserContext } from '../context/UserProvider';
 import { TaskContext } from '../context/TaskProvider';
 import '../styles/NewTask.css';
 
-const EditTask = (props) => {
-  const { id, setModalShow } = props;
+const EditTask = ({ id, setModalShow }) => {
   const { findTask, editTask } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
@@ -40,6 +39,11 @@ const EditTask = (props) => {
       </Form>
     )
   );
+};
+
+EditTask.propTypes = {
+  id: PropTypes.string.isRequired,
+  setModalShow: PropTypes.func.isRequired,
 };
 
 export default EditTask;

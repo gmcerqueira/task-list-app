@@ -1,7 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-props-no-spreading */
+import PropTypes from 'prop-types';
+
 import { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -10,10 +8,11 @@ import NewTask from '../components/NewTask';
 import { TaskContext } from '../context/TaskProvider';
 import Error from '../components/Error';
 
-function NewTaskModal(props) {
+function NewTaskModal({ show, onHide, setModalShow }) {
   return (
     <Modal
-      {...props}
+      show={show}
+      onHide={onHide}
       size="m"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -22,11 +21,21 @@ function NewTaskModal(props) {
         <Modal.Title id="contained-modal-title-vcenter">New task</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <NewTask setModalShow={props.setModalShow} />
+        <NewTask setModalShow={setModalShow} />
       </Modal.Body>
     </Modal>
   );
 }
+
+NewTaskModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
+  setModalShow: PropTypes.func,
+};
+
+NewTaskModal.defaultProps = {
+  setModalShow: () => {},
+};
 
 const ListTasks = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -55,10 +64,7 @@ const ListTasks = () => {
         New task
       </Button>
 
-      <NewTaskModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+      <NewTaskModal show={modalShow} onHide={() => setModalShow(false)} />
       <Tasks />
     </section>
   );
