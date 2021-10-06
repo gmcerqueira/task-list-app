@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { useEffect, useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -52,6 +51,7 @@ const UserProvider = ({ children }) => {
 
       setConnection(response);
     } catch (error) {
+      setUserError(error.message);
       setConnection(false);
     }
   };
@@ -59,22 +59,27 @@ const UserProvider = ({ children }) => {
   const login = async () => {
     setLoading(true);
     const URL = 'https://task-list-api-gmc.herokuapp.com/login';
-    const response = await fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify(Login),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => res.json());
+    try {
+      const response = await fetch(URL, {
+        method: 'POST',
+        body: JSON.stringify(Login),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((res) => res.json());
 
-    if (response.token) {
-      setToken(response.token);
-      setUser(response.user);
-      setUserError('');
-    } else {
-      setUserError(response.error);
-      setToken('');
+      if (response.token) {
+        setToken(response.token);
+        setUser(response.user);
+        setUserError('');
+      } else {
+        setUserError(response.error);
+        setToken('');
+      }
+    } catch (error) {
+      setUserError(error.message);
     }
+
     setLoading(false);
   };
 
@@ -88,19 +93,25 @@ const UserProvider = ({ children }) => {
     }
     const { passwordConfirmation, ...user } = NewUser;
     const URL = 'https://task-list-api-gmc.herokuapp.com/signup';
-    const response = await fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => res.json());
 
-    if (response.error) setUserError(response.error);
-    else {
-      login();
-      setUserError('');
+    try {
+      const response = await fetch(URL, {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((res) => res.json());
+
+      if (response.error) setUserError(response.error);
+      else {
+        login();
+        setUserError('');
+      }
+    } catch (error) {
+      setUserError(error.message);
     }
+
     setLoading(false);
   };
 

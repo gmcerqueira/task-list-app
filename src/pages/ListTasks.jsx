@@ -58,7 +58,6 @@ const ListTasks = () => {
       <NewTaskModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        setModalShow={setModalShow}
       />
       <Tasks />
     </section>
