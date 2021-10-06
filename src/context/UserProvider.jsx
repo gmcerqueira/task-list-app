@@ -52,7 +52,6 @@ const UserProvider = ({ children }) => {
 
       setConnection(response);
     } catch (error) {
-      console.log(error);
       setConnection(false);
     }
   };

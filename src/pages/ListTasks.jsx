@@ -22,15 +22,15 @@ function MyVerticallyCenteredModal(props) {
         <Modal.Title id="contained-modal-title-vcenter">New task</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <NewTask />
+        <NewTask setModalShow={props.setModalShow} />
       </Modal.Body>
     </Modal>
   );
 }
 
 const ListTasks = () => {
-  const { TaskError, setTaskError } = useContext(TaskContext);
   const [modalShow, setModalShow] = useState(false);
+  const { TaskError, setTaskError } = useContext(TaskContext);
 
   return TaskError ? (
     <Error
@@ -58,6 +58,7 @@ const ListTasks = () => {
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
+        setModalShow={setModalShow}
       />
       <Tasks />
     </section>

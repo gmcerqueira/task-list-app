@@ -1,12 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useContext, useRef } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
 import { UserContext } from '../context/UserProvider';
 import { TaskContext } from '../context/TaskProvider';
 import '../styles/NewTask.css';
 
-const NewTask = () => {
+const NewTask = ({ setModalShow }) => {
   const { sendTask, handleNewTaskChange, Sending } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
@@ -29,20 +29,10 @@ const NewTask = () => {
       <Button
         variant="primary"
         ref={ref}
-        onClick={() => sendTask(Token)}
+        onClick={() => { sendTask(Token); setModalShow(false); }}
         disabled={Sending}
       >
-        {Sending ? (
-          <Spinner
-            as="span"
-            animation="border"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-        ) : (
-          'Submit'
-        )}
+        Submit
       </Button>
     </Form>
   );
