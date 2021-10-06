@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Edit, Trash2 } from 'react-feather';
 import dateFormat from 'dateformat';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -30,7 +31,7 @@ const Tasks = () => {
     Deleting,
     setTaskError,
   } = useContext(TaskContext);
-  const { Token } = useContext(UserContext);
+  const { Token, User } = useContext(UserContext);
 
   useEffect(() => {
     if (Token) getTasks(Token);
@@ -61,58 +62,67 @@ const Tasks = () => {
     <Spinner animation="border" variant="primary" role="status" />
   ) : (
     <ListGroup className="task-container">
-      {TasksList.map(({
-        _id, text, created, status,
-      }) => (
-        <ListGroup.Item className="d-flex align-items-center" key={_id}>
-          <Form.Check.Input
-            type="checkbox"
-            id={_id}
-            checked={status === 'done'}
-            onChange={(e) => changeTaskStatus(e, Token)}
-            className="flex-shrink-0"
-          />
-          <Form.Check.Label
-            htmlFor={_id}
-            className={`w-100 mx-3 ${status === 'done' ? 'task-done' : ''}`}
-          >
-            {text}
-          </Form.Check.Label>
-          <Form.Text className="d-flex flex-column align-items-center opacity-50 task-date">
-            <span>{dateFormat(created, 'hh:mm')}</span>
-            <span>{dateFormat(created, 'dd/mm/yy')}</span>
-          </Form.Text>
-          <ButtonGroup size="sm" className="ms-2">
-            <Button
-              variant="secondary"
+      {TasksList.length ? (
+        TasksList.map(({
+          _id, text, created, status,
+        }) => (
+          <ListGroup.Item className="d-flex align-items-center" key={_id}>
+            <Form.Check.Input
+              type="checkbox"
               id={_id}
-              onClick={({ target }) => {
-                setTaskToEdit(target.id);
-                setModalShow(true);
-              }}
-              className="task-button"
+              checked={status === 'done'}
+              onChange={(e) => changeTaskStatus(e, Token)}
+              className="flex-shrink-0"
+            />
+            <Form.Check.Label
+              htmlFor={_id}
+              className={`w-100 mx-3 ${status === 'done' ? 'task-done' : ''}`}
             >
-              <Edit id={_id} />
-            </Button>
-            <Button
-              variant="danger"
-              id={_id}
-              onClick={(e) => {
-                setTaskId(e.target.id);
-                deleteTask(e, Token);
-              }}
-              className="task-button"
-              disabled={Deleting}
-            >
-              {Deleting && TaskId === _id ? (
-                <Spinner animation="border" variant="light" size="sm" />
-              ) : (
-                <Trash2 />
-              )}
-            </Button>
-          </ButtonGroup>
-        </ListGroup.Item>
-      ))}
+              {text}
+            </Form.Check.Label>
+            <Form.Text className="d-flex flex-column align-items-center opacity-50 task-date">
+              <span>{dateFormat(created, 'hh:mm')}</span>
+              <span>{dateFormat(created, 'dd/mm/yy')}</span>
+            </Form.Text>
+            <ButtonGroup size="sm" className="ms-2">
+              <Button
+                variant="secondary"
+                id={_id}
+                onClick={({ target }) => {
+                  setTaskToEdit(target.id);
+                  setModalShow(true);
+                }}
+                className="task-button"
+              >
+                <Edit id={_id} />
+              </Button>
+              <Button
+                variant="danger"
+                id={_id}
+                onClick={(e) => {
+                  setTaskId(e.target.id);
+                  deleteTask(e, Token);
+                }}
+                className="task-button"
+                disabled={Deleting}
+              >
+                {Deleting && TaskId === _id ? (
+                  <Spinner animation="border" variant="light" size="sm" />
+                ) : (
+                  <Trash2 />
+                )}
+              </Button>
+            </ButtonGroup>
+          </ListGroup.Item>
+        ))
+      ) : (
+        <Alert variant="success">
+          <Alert.Heading>No tasks yet at your list!</Alert.Heading>
+          <p>
+            What about we add something to do?
+          </p>
+        </Alert>
+      )}
 
       <EditModal
         show={ModalShow}

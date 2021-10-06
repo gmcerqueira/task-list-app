@@ -12,7 +12,6 @@ const TaskProvider = ({ children }) => {
   const [TaskError, setTaskError] = useState(false);
 
   const getTasks = async (token) => {
-    console.log('carregando...');
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks';
 
     try {
@@ -30,8 +29,9 @@ const TaskProvider = ({ children }) => {
 
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      setTaskError(error.message);
     }
+    setTaskError(false);
   };
 
   const handleNewTaskChange = ({ target }) => {
@@ -66,8 +66,9 @@ const TaskProvider = ({ children }) => {
       setTasksList(newList);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      setTaskError(error.message);
     }
+    setTaskError(false);
   };
 
   const sendTask = async (token) => {
@@ -103,7 +104,7 @@ const TaskProvider = ({ children }) => {
 
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      setTaskError(error.message);
     }
   };
 
@@ -124,7 +125,7 @@ const TaskProvider = ({ children }) => {
         },
       }).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      setTaskError(error.message);
     }
 
     const newList = TasksList.map((task) => {
@@ -155,7 +156,7 @@ const TaskProvider = ({ children }) => {
         },
       }).then((res) => res.json());
     } catch (error) {
-      console.log(error);
+      setTaskError(error.message);
     }
 
     const newList = TasksList.filter(({ _id }) => _id !== id);

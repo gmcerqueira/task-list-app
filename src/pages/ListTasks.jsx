@@ -10,7 +10,7 @@ import NewTask from '../components/NewTask';
 import { TaskContext } from '../context/TaskProvider';
 import Error from '../components/Error';
 
-function MyVerticallyCenteredModal(props) {
+function NewTaskModal(props) {
   return (
     <Modal
       {...props}
@@ -55,7 +55,7 @@ const ListTasks = () => {
         New task
       </Button>
 
-      <MyVerticallyCenteredModal
+      <NewTaskModal
         show={modalShow}
         onHide={() => setModalShow(false)}
         setModalShow={setModalShow}
