@@ -2,7 +2,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import {
-  LinkedIn, GitHub, Email, WhatsApp,
+  LinkedIn, GitHub, Email,
 } from '@material-ui/icons';
 
 import '../styles/Footer.css';
@@ -19,9 +19,6 @@ const Footer = () => (
       </Nav.Link>
       <Nav.Link href="mailto:gmcerqueira@gmail.com" target="_blank">
         <Email fontSize="large" />
-      </Nav.Link>
-      <Nav.Link href="https://api.whatsapp.com/send?phone=5531999440644&text=Good to see you here!" target="_blank">
-        <WhatsApp fontSize="large" />
       </Nav.Link>
     </Container>
   </Navbar>
