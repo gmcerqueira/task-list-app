@@ -4,6 +4,10 @@
   width: 40rem;
 }
 
+.spinner {
+  height: 75vh;
+}
+
 .task-date {
   font-size: 0.8rem;
 }

@@ -63,7 +63,9 @@ const Tasks = () => {
   };
 
   return Loading ? (
-    <Spinner animation="border" variant="primary" role="status" />
+    <div className="spinner">
+      <Spinner animation="border" variant="primary" role="status" />
+    </div>
   ) : (
     <ListGroup className="task-container">
       {TasksList.length ? (
