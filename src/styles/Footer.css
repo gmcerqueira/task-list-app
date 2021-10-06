@@ -1,0 +1,13 @@
+.footer a > svg {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.footer a:first-of-type > svg {
+  font-size: 1.7rem;
+}
+
+
+.footer a {
+  padding: 0;
+  padding-left: 0.5rem;
+}
