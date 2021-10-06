@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -60,9 +62,9 @@ const Login = () => {
           'Login'
         )}
       </Button>
-      <Button variant="success" href="/signup" className="w-100">
+      <Link variant="success" to="/signup" className="w-100 btn btn-success">
         Sign up
-      </Button>
+      </Link>
     </Form>
   );
 };
