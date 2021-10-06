@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Redirect } from 'react-router';
 import Tasks from '../components/Tasks';
 import NewTask from '../components/NewTask';
 import { TaskContext } from '../context/TaskProvider';
 import Error from '../components/Error';
+import { UserContext } from '../context/UserProvider';
 
 function NewTaskModal({ show, onHide, setModalShow }) {
   return (
@@ -42,6 +44,11 @@ const ListTasks = () => {
   const {
     TaskError, setTaskError, Sending, setSending,
   } = useContext(TaskContext);
+  const {
+    User,
+  } = useContext(UserContext);
+
+  if (!User.email) return <Redirect to="/" />;
 
   return TaskError ? (
     <Error
