@@ -1,14 +1,13 @@
 import { useContext, useRef } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Overlay from 'react-bootstrap/Overlay';
-import Tooltip from 'react-bootstrap/Tooltip';
+import Spinner from 'react-bootstrap/Spinner';
 import { UserContext } from '../context/UserProvider';
 import { TaskContext } from '../context/TaskProvider';
 import '../styles/NewTask.css';
 
 const NewTask = () => {
-  const { sendTask, handleNewTaskChange, Sent } = useContext(TaskContext);
+  const { sendTask, handleNewTaskChange, Sending } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
   const ref = useRef(null);
@@ -27,17 +26,24 @@ const NewTask = () => {
           onChange={handleNewTaskChange}
         />
       </Form.FloatingLabel>
-      <Button variant="primary" ref={ref} onClick={() => sendTask(Token)}>
-        Submit
-      </Button>
-      <Overlay target={ref.current} show={Sent} placement="right">
-        {(props) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <Tooltip id="overlay-example" {...props}>
-            Task sent!
-          </Tooltip>
+      <Button
+        variant="primary"
+        ref={ref}
+        onClick={() => sendTask(Token)}
+        disabled={Sending}
+      >
+        {Sending ? (
+          <Spinner
+            as="span"
+            animation="border"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+        ) : (
+          'Submit'
         )}
-      </Overlay>
+      </Button>
     </Form>
   );
 };

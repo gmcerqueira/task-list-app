@@ -22,12 +22,13 @@ const Tasks = () => {
   const [TaskId, setTaskId] = useState('');
 
   const {
-    TasksList, getTasks, changeTaskStatus, Loading, deleteTask, Deleting,
+    TasksList, getTasks, changeTaskStatus, Loading, deleteTask, Deleting, setTaskError,
   } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
   useEffect(() => {
     if (Token) getTasks(Token);
+    else setTaskError('You need to login to access your tasks');
   }, [Token]);
 
   function MyVerticallyCenteredModal(props) {
@@ -50,7 +51,7 @@ const Tasks = () => {
     );
   }
 
-  return Loading ? (
+  return (Loading) ? (
     <Spinner animation="border" variant="primary" role="status" />
   ) : (
     <ListGroup className="task-container">

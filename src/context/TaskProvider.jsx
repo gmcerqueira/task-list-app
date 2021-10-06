@@ -6,9 +6,10 @@ const TaskContext = createContext();
 const TaskProvider = ({ children }) => {
   const [TasksList, setTasksList] = useState([]);
   const [NewTask, setNewTask] = useState('');
-  const [Sent, setSent] = useState(false);
+  const [Sending, setSending] = useState(false);
   const [Loading, setLoading] = useState(true);
   const [Deleting, setDeleting] = useState(false);
+  const [TaskError, setTaskError] = useState(false);
 
   const getTasks = async (token) => {
     console.log('carregando...');
@@ -23,9 +24,9 @@ const TaskProvider = ({ children }) => {
         },
       }).then((res) => res.json());
 
-      if (response.tasks) {
-        setTasksList(response.tasks);
-      }
+      if (response.tasks) setTasksList(response.tasks);
+
+      if (response.error) setTaskError(response.error);
 
       setLoading(false);
     } catch (error) {
@@ -76,7 +77,7 @@ const TaskProvider = ({ children }) => {
       alert('Must type task...');
       return;
     }
-    if (Sent) return;
+    if (Sending) return;
 
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks/create';
 
@@ -93,10 +94,10 @@ const TaskProvider = ({ children }) => {
       await getTasks(token);
 
       setNewTask('');
-      setSent(true);
+      setSending(true);
 
       setTimeout(() => {
-        setSent(false);
+        setSending(false);
         clearInterval();
       }, 3000);
 
@@ -167,9 +168,10 @@ const TaskProvider = ({ children }) => {
 
   const context = {
     TasksList,
-    Sent,
+    Sending,
     Loading,
     Deleting,
+    TaskError,
     getTasks,
     sendTask,
     editTask,
@@ -177,6 +179,7 @@ const TaskProvider = ({ children }) => {
     changeTaskStatus,
     findTask,
     deleteTask,
+    setTaskError,
   };
 
   return (

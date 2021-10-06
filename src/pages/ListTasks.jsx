@@ -1,11 +1,14 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Tasks from '../components/Tasks';
 import NewTask from '../components/NewTask';
+import { TaskContext } from '../context/TaskProvider';
+import Error from '../components/Error';
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -26,20 +29,34 @@ function MyVerticallyCenteredModal(props) {
 }
 
 const ListTasks = () => {
+  const { TaskError, setTaskError } = useContext(TaskContext);
   const [modalShow, setModalShow] = useState(false);
 
-  return (
-    <section className="d-flex flex-column align-items-center">
-      <Button variant="primary" onClick={() => setModalShow(true)} className="mb-4">
-        New task
-      </Button>
+  return (TaskError ? (
+    <Error
+      error={(
+        <>
+          {TaskError}
+          <hr />
+          <p className="text-muted fs-6 w-75">If you are already logged in, close this window to reload.</p>
+        </>
+)}
+      seter={setTaskError}
+    />
+  )
+    : (
+      <section className="d-flex flex-column align-items-center">
+        <Button variant="primary" onClick={() => setModalShow(true)} className="mb-4">
+          New task
+        </Button>
 
-      <MyVerticallyCenteredModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-      <Tasks />
-    </section>
+        <MyVerticallyCenteredModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+        <Tasks />
+      </section>
+    )
   );
 };
 export default ListTasks;
