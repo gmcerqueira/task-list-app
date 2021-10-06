@@ -3,4 +3,6 @@ const saveTokenLocalStorage = (token) => {
 };
 const readTokenLocalStorage = () => localStorage.getItem('taskListToken');
 
-module.exports = { saveTokenLocalStorage, readTokenLocalStorage };
+const deleteTokenLocalStorage = () => localStorage.removeItem('taskListToken');
+
+module.exports = { saveTokenLocalStorage, readTokenLocalStorage, deleteTokenLocalStorage };

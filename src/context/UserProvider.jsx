@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import {
   saveTokenLocalStorage,
   readTokenLocalStorage,
+  deleteTokenLocalStorage,
 } from '../services/handleToken';
 import {
   saveUserLocalStorage,
   readUserLocalStorage,
+  deleteUserLocalStorage,
 } from '../services/handleUser';
 
 const UserContext = createContext();
@@ -121,6 +123,11 @@ const UserProvider = ({ children }) => {
     });
   };
 
+  const signOut = () => {
+    deleteTokenLocalStorage();
+    deleteUserLocalStorage();
+  };
+
   useEffect(() => {
     getConnection();
     const localToken = readTokenLocalStorage();
@@ -151,6 +158,7 @@ const UserProvider = ({ children }) => {
     handleLoginChange,
     login,
     signUp,
+    signOut,
     handleNewUserChange,
     setSaveLogin,
     setUserError,

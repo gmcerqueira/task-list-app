@@ -6,5 +6,6 @@ const saveUserLocalStorage = (user) => {
 };
 
 const readUserLocalStorage = () => JSON.parse(localStorage.getItem('taskListUser'));
+const deleteUserLocalStorage = () => localStorage.removeItem('taskListUser');
 
-module.exports = { saveUserLocalStorage, readUserLocalStorage };
+module.exports = { saveUserLocalStorage, readUserLocalStorage, deleteUserLocalStorage };
