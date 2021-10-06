@@ -22,7 +22,13 @@ const Tasks = () => {
   const [TaskId, setTaskId] = useState('');
 
   const {
-    TasksList, getTasks, changeTaskStatus, Loading, deleteTask, Deleting, setTaskError,
+    TasksList,
+    getTasks,
+    changeTaskStatus,
+    Loading,
+    deleteTask,
+    Deleting,
+    setTaskError,
   } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
@@ -31,7 +37,7 @@ const Tasks = () => {
     else setTaskError('You need to login to access your tasks');
   }, [Token]);
 
-  function MyVerticallyCenteredModal(props) {
+  function EditModal(props) {
     return (
       <Modal
         {...props}
@@ -51,63 +57,64 @@ const Tasks = () => {
     );
   }
 
-  return (Loading) ? (
+  return Loading ? (
     <Spinner animation="border" variant="primary" role="status" />
   ) : (
     <ListGroup className="task-container">
-      {TasksList
-        && TasksList.map(({
-          _id, text, created, status,
-        }) => (
-          <ListGroup.Item className="d-flex align-items-center" key={_id}>
-            <Form.Check.Input
-              type="checkbox"
+      {TasksList.map(({
+        _id, text, created, status,
+      }) => (
+        <ListGroup.Item className="d-flex align-items-center" key={_id}>
+          <Form.Check.Input
+            type="checkbox"
+            id={_id}
+            checked={status === 'done'}
+            onChange={(e) => changeTaskStatus(e, Token)}
+            className="flex-shrink-0"
+          />
+          <Form.Check.Label
+            htmlFor={_id}
+            className={`w-100 mx-3 ${status === 'done' ? 'task-done' : ''}`}
+          >
+            {text}
+          </Form.Check.Label>
+          <Form.Text className="d-flex flex-column align-items-center opacity-50 task-date">
+            <span>{dateFormat(created, 'hh:mm')}</span>
+            <span>{dateFormat(created, 'dd/mm/yy')}</span>
+          </Form.Text>
+          <ButtonGroup size="sm" className="ms-2">
+            <Button
+              variant="secondary"
               id={_id}
-              checked={status === 'done'}
-              onChange={(e) => changeTaskStatus(e, Token)}
-              className="flex-shrink-0"
-            />
-            <Form.Check.Label
-              htmlFor={_id}
-              className={`w-100 mx-3 ${status === 'done' ? 'task-done' : ''}`}
+              onClick={({ target }) => {
+                setTaskToEdit(target.id);
+                setModalShow(true);
+              }}
+              className="task-button"
             >
-              {text}
-            </Form.Check.Label>
-            <Form.Text className="d-flex flex-column align-items-center opacity-50 task-date">
-              <span>{dateFormat(created, 'hh:mm')}</span>
-              <span>{dateFormat(created, 'dd/mm/yy')}</span>
-            </Form.Text>
-            <ButtonGroup size="sm" className="ms-2">
-              <Button
-                variant="secondary"
-                id={_id}
-                onClick={({ target }) => {
-                  setTaskToEdit(target.id);
-                  setModalShow(true);
-                }}
-                className="task-button"
-              >
-                <Edit id={_id} />
-              </Button>
-              <Button
-                variant="danger"
-                id={_id}
-                onClick={(e) => { setTaskId(e.target.id); deleteTask(e, Token); }}
-                className="task-button"
-                disabled={Deleting}
+              <Edit id={_id} />
+            </Button>
+            <Button
+              variant="danger"
+              id={_id}
+              onClick={(e) => {
+                setTaskId(e.target.id);
+                deleteTask(e, Token);
+              }}
+              className="task-button"
+              disabled={Deleting}
+            >
+              {Deleting && TaskId === _id ? (
+                <Spinner animation="border" variant="light" size="sm" />
+              ) : (
+                <Trash2 />
+              )}
+            </Button>
+          </ButtonGroup>
+        </ListGroup.Item>
+      ))}
 
-              >
-                {(Deleting && TaskId === _id) ? (
-                  <Spinner animation="border" variant="light" size="sm" />
-                ) : (
-                  <Trash2 />
-                )}
-              </Button>
-            </ButtonGroup>
-          </ListGroup.Item>
-        ))}
-
-      <MyVerticallyCenteredModal
+      <EditModal
         show={ModalShow}
         onHide={() => {
           setModalShow(false);
