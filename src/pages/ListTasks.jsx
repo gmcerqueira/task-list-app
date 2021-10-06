@@ -39,7 +39,7 @@ NewTaskModal.defaultProps = {
 
 const ListTasks = () => {
   const [modalShow, setModalShow] = useState(false);
-  const { TaskError, setTaskError } = useContext(TaskContext);
+  const { TaskError, setTaskError, Sending } = useContext(TaskContext);
 
   return TaskError ? (
     <Error
@@ -64,7 +64,8 @@ const ListTasks = () => {
         New task
       </Button>
 
-      <NewTaskModal show={modalShow} onHide={() => setModalShow(false)} />
+      <NewTaskModal show={modalShow && !Sending} onHide={() => setModalShow(false)} />
+
       <Tasks />
     </section>
   );

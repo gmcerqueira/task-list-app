@@ -73,11 +73,8 @@ const TaskProvider = ({ children }) => {
 
   const sendTask = async (token) => {
     setLoading(true);
+    setSending(true);
 
-    if (!NewTask) {
-      alert('Must type task...');
-      return;
-    }
     if (Sending) return;
 
     const URL = 'https://task-list-api-gmc.herokuapp.com/tasks/create';
@@ -95,12 +92,6 @@ const TaskProvider = ({ children }) => {
       await getTasks(token);
 
       setNewTask('');
-      setSending(true);
-
-      setTimeout(() => {
-        setSending(false);
-        clearInterval();
-      }, 3000);
 
       setLoading(false);
     } catch (error) {
@@ -173,6 +164,7 @@ const TaskProvider = ({ children }) => {
     Loading,
     Deleting,
     TaskError,
+    NewTask,
     getTasks,
     sendTask,
     editTask,

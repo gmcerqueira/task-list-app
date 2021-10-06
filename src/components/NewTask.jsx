@@ -7,8 +7,8 @@ import { UserContext } from '../context/UserProvider';
 import { TaskContext } from '../context/TaskProvider';
 import '../styles/NewTask.css';
 
-const NewTask = ({ setModalShow }) => {
-  const { sendTask, handleNewTaskChange, Sending } = useContext(TaskContext);
+const NewTaskContainer = ({ setModalShow }) => {
+  const { sendTask, handleNewTaskChange, NewTask } = useContext(TaskContext);
   const { Token } = useContext(UserContext);
 
   const ref = useRef(null);
@@ -34,7 +34,7 @@ const NewTask = ({ setModalShow }) => {
           sendTask(Token);
           setModalShow(false);
         }}
-        disabled={Sending}
+        disabled={!NewTask.length}
       >
         Submit
       </Button>
@@ -42,12 +42,12 @@ const NewTask = ({ setModalShow }) => {
   );
 };
 
-NewTask.propTypes = {
+NewTaskContainer.propTypes = {
   setModalShow: PropTypes.func,
 };
 
-NewTask.defaultProps = {
+NewTaskContainer.defaultProps = {
   setModalShow: () => {},
 };
 
-export default NewTask;
+export default NewTaskContainer;
