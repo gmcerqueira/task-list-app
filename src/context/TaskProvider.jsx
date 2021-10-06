@@ -173,6 +173,7 @@ const TaskProvider = ({ children }) => {
     findTask,
     deleteTask,
     setTaskError,
+    setSending,
   };
 
   return (

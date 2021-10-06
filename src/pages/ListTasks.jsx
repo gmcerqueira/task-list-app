@@ -39,7 +39,9 @@ NewTaskModal.defaultProps = {
 
 const ListTasks = () => {
   const [modalShow, setModalShow] = useState(false);
-  const { TaskError, setTaskError, Sending } = useContext(TaskContext);
+  const {
+    TaskError, setTaskError, Sending, setSending,
+  } = useContext(TaskContext);
 
   return TaskError ? (
     <Error
@@ -58,7 +60,7 @@ const ListTasks = () => {
     <section className="d-flex flex-column align-items-center">
       <Button
         variant="primary"
-        onClick={() => setModalShow(true)}
+        onClick={() => { setModalShow(true); setSending(false); }}
         className="mb-4"
       >
         New task
